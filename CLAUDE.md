@@ -1,4 +1,4 @@
-# Self Property Manager
+# OWN Property Manager
 
 ## Project Overview
 Full-stack property management application for managing rental properties in Georgia.

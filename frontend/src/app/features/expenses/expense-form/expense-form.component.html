@@ -1,0 +1,82 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Expense' : 'Add Expense' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <div class="category-row">
+      <mat-form-field class="category-field">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category" (selectionChange)="onCategoryChange($event.value)">
+          @for (cat of categories; track cat.id) {
+            <mat-option [value]="cat.name">
+              {{ cat.name }}
+              @if (cat.is_recurring) { <small>(recurring)</small> }
+              @if (cat.requires_marking) { <small>(markable)</small> }
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <button mat-icon-button type="button" (click)="addingCategory = !addingCategory" title="Add custom category">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </div>
+
+    @if (addingCategory) {
+      <div class="new-category-section">
+        <mat-form-field class="full-width">
+          <mat-label>New Category Name</mat-label>
+          <input matInput [(ngModel)]="newCategoryName" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+        <div class="category-options">
+          <mat-checkbox #recurringCheck>Recurring</mat-checkbox>
+          <mat-checkbox #markingCheck>Requires Marking Done</mat-checkbox>
+          <button mat-stroked-button type="button"
+            (click)="addCategory(newCategoryName, recurringCheck.checked, markingCheck.checked)">
+            Add
+          </button>
+        </div>
+      </div>
+    }
+
+    <mat-form-field class="full-width">
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Amount</mat-label>
+      <span matTextPrefix>$ </span>
+      <input matInput type="number" formControlName="amount" step="0.01">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Vendor</mat-label>
+      <input matInput formControlName="vendor">
+    </mat-form-field>
+
+    <mat-checkbox formControlName="is_recurring">Recurring Expense</mat-checkbox>
+
+    @if (form.get('is_recurring')?.value) {
+      <mat-form-field class="full-width mt-1">
+        <mat-label>Frequency</mat-label>
+        <mat-select formControlName="recurrence_rule">
+          @for (freq of frequencies; track freq) {
+            <mat-option [value]="freq">{{ freq }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="save()" [disabled]="form.invalid || saving">
+    {{ saving ? 'Saving...' : (isEditMode ? 'Update' : 'Add') }}
+  </button>
+</mat-dialog-actions>

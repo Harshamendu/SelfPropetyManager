@@ -1,0 +1,32 @@
+<div
+  class="upload-area"
+  [class.drag-over]="isDragOver"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+>
+  <mat-icon class="upload-icon">cloud_upload</mat-icon>
+  <p>Drag and drop files here</p>
+  <p class="or-text">or</p>
+  <button mat-stroked-button (click)="fileInput.click()">Browse Files</button>
+  <input
+    #fileInput
+    type="file"
+    hidden
+    [accept]="accept"
+    [multiple]="multiple"
+    (change)="onFileSelected($event)"
+  />
+</div>
+
+@if (selectedFiles.length > 0) {
+  <div class="selected-files">
+    @for (file of selectedFiles; track file.name) {
+      <div class="file-item">
+        <mat-icon>insert_drive_file</mat-icon>
+        <span>{{ file.name }}</span>
+        <span class="file-size">({{ (file.size / 1024).toFixed(1) }} KB)</span>
+      </div>
+    }
+  </div>
+}

@@ -1,0 +1,72 @@
+<div class="sidebar-container">
+  <div class="logo-section">
+    <mat-icon class="logo-icon">apartment</mat-icon>
+    <h2>Property Manager</h2>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <nav>
+    <mat-nav-list>
+      @if (isTenant) {
+        <a mat-list-item routerLink="/my-rental" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>home</mat-icon>
+          <span matListItemTitle>My Rental</span>
+        </a>
+      }
+
+      @if (canManageProperties) {
+        <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>dashboard</mat-icon>
+          <span matListItemTitle>Dashboard</span>
+        </a>
+
+        <mat-divider></mat-divider>
+
+        <div class="section-label">Properties</div>
+
+        <a mat-list-item routerLink="/properties" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+          <mat-icon matListItemIcon>list</mat-icon>
+          <span matListItemTitle>All Properties</span>
+        </a>
+
+        @for (property of properties; track property.id) {
+          <a mat-list-item [routerLink]="['/properties', property.id]" routerLinkActive="active-link">
+            <mat-icon matListItemIcon>home</mat-icon>
+            <span matListItemTitle>{{ property.name }}</span>
+          </a>
+        }
+
+        <mat-divider></mat-divider>
+
+        <div class="section-label">Tools</div>
+
+        <a mat-list-item routerLink="/reports" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>assessment</mat-icon>
+          <span matListItemTitle>Reports</span>
+        </a>
+
+        <a mat-list-item routerLink="/document-templates" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>description</mat-icon>
+          <span matListItemTitle>Document Templates</span>
+        </a>
+      }
+
+      @if (isAdmin) {
+        <mat-divider></mat-divider>
+
+        <div class="section-label">Administration</div>
+
+        <a mat-list-item routerLink="/users" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>people</mat-icon>
+          <span matListItemTitle>Users</span>
+        </a>
+
+        <a mat-list-item routerLink="/backups" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>backup</mat-icon>
+          <span matListItemTitle>Backup & Recovery</span>
+        </a>
+      }
+    </mat-nav-list>
+  </nav>
+</div>

@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Reminder' : 'Add Reminder' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field class="full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="3"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Due Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="due_date">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Reminder Type</mat-label>
+      <mat-select formControlName="reminder_type">
+        @for (type of reminderTypes; track type) {
+          <mat-option [value]="type">{{ type }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <div class="checkbox-row">
+      <mat-checkbox formControlName="is_recurring">Recurring</mat-checkbox>
+      <mat-checkbox formControlName="notify_email">Email Notification</mat-checkbox>
+      <mat-checkbox formControlName="notify_in_app">In-App Notification</mat-checkbox>
+    </div>
+
+    @if (form.get('is_recurring')?.value) {
+      <mat-form-field class="full-width mt-1">
+        <mat-label>Recurrence Rule</mat-label>
+        <mat-select formControlName="recurrence_rule">
+          @for (rule of recurrenceRules; track rule) {
+            <mat-option [value]="rule">{{ rule }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="save()" [disabled]="form.invalid || saving">
+    {{ saving ? 'Saving...' : (isEditMode ? 'Update' : 'Add') }}
+  </button>
+</mat-dialog-actions>

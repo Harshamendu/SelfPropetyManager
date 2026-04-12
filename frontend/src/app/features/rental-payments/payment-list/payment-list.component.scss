@@ -1,0 +1,93 @@
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  h2 {
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+}
+
+.year-select {
+  width: 100px;
+}
+
+.empty-message {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 32px;
+}
+
+.total-row {
+  text-align: right;
+  font-size: 16px;
+  padding: 12px 0;
+}
+
+table {
+  width: 100%;
+}
+
+.done-row {
+  opacity: 0.6;
+
+  td {
+    color: var(--text-muted);
+  }
+}
+
+.past-due-row {
+  background-color: var(--stat-reminder-bg);
+}
+
+.future-row {
+  opacity: 0.7;
+  background-color: var(--bg-surface);
+}
+
+.past-due-text {
+  color: var(--accent-orange);
+  font-weight: 500;
+}
+
+.past-due-badge {
+  display: inline-block;
+  background: var(--accent-orange);
+  color: white;
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.done-icon {
+  color: var(--accent-green);
+  font-size: 20px;
+}
+
+.future-icon {
+  color: var(--text-muted);
+  font-size: 20px;
+}
+
+.auto-icon {
+  color: var(--text-secondary);
+  font-size: 20px;
+}
+
+.future-label {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-style: italic;
+}

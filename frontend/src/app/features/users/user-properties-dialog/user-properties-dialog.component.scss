@@ -1,0 +1,27 @@
+mat-dialog-content {
+  min-width: 440px;
+}
+
+.assign-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+
+  .property-select {
+    flex: 1;
+  }
+}
+
+h3 {
+  margin: 16px 0 8px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.loading,
+.empty {
+  padding: 16px;
+  text-align: center;
+  color: var(--text-secondary);
+}

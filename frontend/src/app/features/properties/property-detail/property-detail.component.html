@@ -1,0 +1,124 @@
+@if (loading) {
+  <p class="text-center mt-3">Loading property...</p>
+}
+
+@if (property) {
+  <div class="property-header">
+    <div class="header-left">
+      <button mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <div>
+        <h1>{{ property.name }}</h1>
+        <p class="subtitle">
+          {{ property.address_line1 }}, {{ property.city }}, {{ property.state }} {{ property.zip_code }}
+        </p>
+      </div>
+    </div>
+    <button mat-flat-button color="primary" (click)="editProperty()">
+      <mat-icon>edit</mat-icon> Edit Property
+    </button>
+  </div>
+
+  <div class="vertical-tabs-container">
+    <mat-tab-group class="vertical-tabs" animationDuration="0ms">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>info</mat-icon>
+          <span>Overview</span>
+        </ng-template>
+        <div class="tab-content">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Property Details</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <label>Type</label>
+                  <span>{{ property.property_type }}</span>
+                </div>
+                <div class="detail-item">
+                  <label>Address</label>
+                  <span>
+                    {{ property.address_line1 }}
+                    @if (property.address_line2) { <br>{{ property.address_line2 }} }
+                    <br>{{ property.city }}, {{ property.state }} {{ property.zip_code }}
+                  </span>
+                </div>
+                @if (property.purchase_date) {
+                  <div class="detail-item">
+                    <label>Purchase Date</label>
+                    <span>{{ property.purchase_date }}</span>
+                  </div>
+                }
+                @if (property.purchase_price) {
+                  <div class="detail-item">
+                    <label>Purchase Price</label>
+                    <span>{{ property.purchase_price | currencyFormat }}</span>
+                  </div>
+                }
+                @if (property.notes) {
+                  <div class="detail-item full-width">
+                    <label>Notes</label>
+                    <span>{{ property.notes }}</span>
+                  </div>
+                }
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>folder</mat-icon>
+          <span>Documents</span>
+        </ng-template>
+        <div class="tab-content">
+          <app-document-list [propertyId]="property.id"></app-document-list>
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>receipt_long</mat-icon>
+          <span>Expenses</span>
+        </ng-template>
+        <div class="tab-content">
+          <app-expense-list [propertyId]="property.id"></app-expense-list>
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>payments</mat-icon>
+          <span>Rental Payments</span>
+        </ng-template>
+        <div class="tab-content">
+          <app-payment-list [propertyId]="property.id"></app-payment-list>
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>contacts</mat-icon>
+          <span>Contacts</span>
+        </ng-template>
+        <div class="tab-content">
+          <app-contact-list [propertyId]="property.id"></app-contact-list>
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>alarm</mat-icon>
+          <span>Reminders</span>
+        </ng-template>
+        <div class="tab-content">
+          <app-reminder-list [propertyId]="property.id"></app-reminder-list>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+}

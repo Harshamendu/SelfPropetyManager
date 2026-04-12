@@ -1,0 +1,671 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// ============================================================
+// GitHub Primer Light Theme (github.com default light)
+// ============================================================
+body.light-theme {
+  // Canvas / backgrounds
+  --bg-primary: #ffffff;                            // canvas.default
+  --bg-card: #ffffff;                               // canvas.default
+  --bg-sidebar: #f6f8fa;                            // canvas.subtle
+  --bg-input: #f6f8fa;                              // canvas.subtle
+  --bg-surface: #f6f8fa;                            // canvas.subtle
+  --bg-surface-high: #ffffff;                       // canvas.default
+  --bg-topbar: #f6f8fa;                             // canvas.subtle
+
+  // Foreground / text
+  --text-primary: #1f2328;                          // fg.default
+  --text-secondary: #656d76;                        // fg.muted
+  --text-muted: #8b949e;                            // fg.subtle
+  --text-on-primary: #ffffff;                       // fg.onEmphasis
+
+  // Borders
+  --border-color: #d0d7de;                          // border.default
+  --hover-bg: rgba(208, 215, 222, 0.32);           // actionListItem.default.hoverBg
+  --focus-bg: rgba(208, 215, 222, 0.48);
+  --pressed-bg: rgba(208, 215, 222, 0.48);
+
+  // Scrollbar
+  --scrollbar-track: #f6f8fa;
+  --scrollbar-thumb: #d0d7de;
+  --scrollbar-thumb-hover: #afb8c1;
+
+  // Form elements
+  --new-category-bg: #f6f8fa;
+  --recurring-hint-bg: #ddf4ff;                     // accent.subtle
+  --recurring-hint-border: #0969da;                 // accent.fg
+
+  // Accent colors (GitHub Primer functional)
+  --accent-primary: #0969da;                        // accent.fg
+  --accent-green: #1a7f37;                          // success.fg
+  --accent-red: #d1242f;                            // danger.fg (was cf222e)
+  --accent-orange: #9a6700;                         // attention.fg
+  --accent-purple: #8250df;                         // done.fg
+
+  // Semantic status colors
+  --stat-income-bg: #dafbe1;                        // success.subtle
+  --stat-income-text: #1a7f37;                      // success.fg
+  --stat-expense-bg: #ffebe9;                       // danger.subtle
+  --stat-expense-text: #d1242f;                     // danger.fg
+  --stat-reminder-bg: #fff8c5;                      // attention.subtle
+  --stat-reminder-text: #9a6700;                    // attention.fg
+  --stat-info-bg: #ddf4ff;                          // accent.subtle
+  --stat-info-text: #0969da;                        // accent.fg
+  --stat-neutral-bg: #f6f8fa;                       // canvas.subtle
+  --stat-neutral-text: #656d76;                     // fg.muted
+
+  // Lease status
+  --lease-active-bg: #dafbe1;                       // success.subtle
+  --lease-active-text: #1a7f37;                     // success.fg
+  --lease-inactive-bg: #ffebe9;                     // danger.subtle
+  --lease-inactive-text: #d1242f;                   // danger.fg
+  --lease-detail-text: #656d76;                     // fg.muted
+
+  // Property icon
+  --property-icon-bg: #0969da;                      // accent.fg
+
+  // Sidebar
+  --sidebar-text: #1f2328;                          // fg.default
+  --sidebar-text-muted: #656d76;                    // fg.muted
+  --sidebar-icon: #656d76;                          // fg.muted
+  --sidebar-hover-bg: rgba(208, 215, 222, 0.32);   // actionListItem.default.hoverBg
+  --sidebar-active-bg: rgba(208, 215, 222, 0.48);
+  --sidebar-active-text: #1f2328;                   // fg.default
+  --sidebar-divider: #d0d7de;                       // border.default
+
+  // File upload
+  --upload-border: #d0d7de;                         // border.default
+  --upload-active-border: #0969da;                  // accent.fg
+  --upload-active-bg: #ddf4ff;                      // accent.subtle
+
+  // Badges
+  --badge-overdue-bg: #ffebe9;                      // danger.subtle
+  --badge-overdue-text: #d1242f;                    // danger.fg
+  --badge-pending-bg: #fff8c5;                      // attention.subtle
+  --badge-pending-text: #9a6700;                    // attention.fg
+  --badge-completed-bg: #dafbe1;                    // success.subtle
+  --badge-completed-text: #1a7f37;                  // success.fg
+  --badge-info-bg: #ddf4ff;                         // accent.subtle
+  --badge-info-text: #0969da;                       // accent.fg
+}
+
+// ============================================================
+// GitHub Primer Dark Default Theme (github.com dark mode)
+// ============================================================
+body.dark-theme {
+  // Canvas / backgrounds
+  --bg-primary: #0d1117;                            // canvas.default
+  --bg-card: #161b22;                               // canvas.subtle
+  --bg-sidebar: #010409;                            // canvas.inset
+  --bg-input: #0d1117;                              // canvas.default (inputs)
+  --bg-surface: #161b22;                            // canvas.subtle
+  --bg-surface-high: #1c2128;                       // canvas.overlay (for dialogs/menus)
+  --bg-topbar: #010409;                             // header bg
+
+  // Foreground / text
+  --text-primary: #e6edf3;                          // fg.default
+  --text-secondary: #7d8590;                        // fg.muted
+  --text-muted: #484f58;                            // fg.subtle
+  --text-on-primary: #ffffff;                       // fg.onEmphasis
+
+  // Borders
+  --border-color: #30363d;                          // border.default
+  --hover-bg: rgba(177, 186, 196, 0.12);           // actionListItem.default.hoverBg
+  --focus-bg: rgba(177, 186, 196, 0.20);
+  --pressed-bg: rgba(177, 186, 196, 0.16);
+
+  // Scrollbar
+  --scrollbar-track: #0d1117;
+  --scrollbar-thumb: #30363d;
+  --scrollbar-thumb-hover: #484f58;
+
+  // Form elements
+  --new-category-bg: #161b22;
+  --recurring-hint-bg: rgba(56, 139, 253, 0.10);
+  --recurring-hint-border: #58a6ff;                 // accent.fg
+
+  // Accent colors (GitHub Primer functional — dark)
+  --accent-primary: #58a6ff;                        // accent.fg
+  --accent-green: #3fb950;                          // success.fg
+  --accent-red: #f85149;                            // danger.fg
+  --accent-orange: #d29922;                         // attention.fg
+  --accent-purple: #bc8cff;                         // done.fg
+
+  // Semantic status colors
+  --stat-income-bg: rgba(63, 185, 80, 0.10);       // success tinted
+  --stat-income-text: #3fb950;                      // success.fg
+  --stat-expense-bg: rgba(248, 81, 73, 0.10);      // danger tinted
+  --stat-expense-text: #f85149;                     // danger.fg
+  --stat-reminder-bg: rgba(210, 153, 34, 0.10);    // attention tinted
+  --stat-reminder-text: #d29922;                    // attention.fg
+  --stat-info-bg: rgba(88, 166, 255, 0.10);        // accent tinted
+  --stat-info-text: #58a6ff;                        // accent.fg
+  --stat-neutral-bg: #161b22;                       // canvas.subtle
+  --stat-neutral-text: #7d8590;                     // fg.muted
+
+  // Lease status
+  --lease-active-bg: rgba(63, 185, 80, 0.15);
+  --lease-active-text: #3fb950;                     // success.fg
+  --lease-inactive-bg: rgba(248, 81, 73, 0.15);
+  --lease-inactive-text: #f85149;                   // danger.fg
+  --lease-detail-text: #7d8590;                     // fg.muted
+
+  // Property icon
+  --property-icon-bg: #58a6ff;                      // accent.fg
+
+  // Sidebar
+  --sidebar-text: #e6edf3;                          // fg.default
+  --sidebar-text-muted: #7d8590;                    // fg.muted
+  --sidebar-icon: #7d8590;                          // fg.muted
+  --sidebar-hover-bg: rgba(177, 186, 196, 0.12);   // actionListItem.default.hoverBg
+  --sidebar-active-bg: rgba(177, 186, 196, 0.20);
+  --sidebar-active-text: #e6edf3;                   // fg.default
+  --sidebar-divider: #21262d;                       // border.muted
+
+  // File upload
+  --upload-border: #30363d;                         // border.default
+  --upload-active-border: #58a6ff;                  // accent.fg
+  --upload-active-bg: rgba(88, 166, 255, 0.10);
+
+  // Badges
+  --badge-overdue-bg: rgba(248, 81, 73, 0.15);
+  --badge-overdue-text: #f85149;                    // danger.fg
+  --badge-pending-bg: rgba(210, 153, 34, 0.15);
+  --badge-pending-text: #d29922;                    // attention.fg
+  --badge-completed-bg: rgba(63, 185, 80, 0.15);
+  --badge-completed-text: #3fb950;                  // success.fg
+  --badge-info-bg: rgba(88, 166, 255, 0.15);
+  --badge-info-text: #58a6ff;                       // accent.fg
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// ============================================================
+// Material Component Overrides — Both Themes
+// Uses CSS variables so they adapt automatically
+// ============================================================
+
+// Sidenav container — must override Material's default white background
+.mat-sidenav-container {
+  background-color: var(--bg-primary) !important;
+}
+
+.mat-sidenav-content {
+  background-color: var(--bg-primary) !important;
+}
+
+// Cards
+.mat-mdc-card {
+  background-color: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color);
+}
+
+.mat-mdc-card-title, .mdc-card__title {
+  color: var(--text-primary) !important;
+}
+
+.mat-mdc-card-subtitle, .mdc-card__subtitle {
+  color: var(--text-secondary) !important;
+}
+
+// App bar / Toolbar
+.mat-toolbar {
+  background-color: var(--bg-topbar) !important;
+  color: var(--text-primary) !important;
+}
+
+// Dialogs
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: var(--bg-surface-high) !important;
+  color: var(--text-primary) !important;
+}
+
+[mat-dialog-title], .mat-mdc-dialog-title {
+  color: var(--text-primary) !important;
+}
+
+// Autocomplete
+.mat-mdc-autocomplete-panel {
+  background-color: var(--bg-surface-high) !important;
+}
+
+// Form fields
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: var(--bg-input) !important;
+}
+
+.mat-mdc-form-field {
+  color: var(--text-primary);
+}
+
+.mdc-text-field--filled .mdc-floating-label {
+  color: var(--text-secondary) !important;
+}
+
+.mdc-text-field--filled .mdc-text-field__input,
+.mdc-text-field--outlined .mdc-text-field__input,
+.mat-mdc-form-field .mat-mdc-input-element,
+.mat-mdc-form-field textarea.mat-mdc-input-element {
+  color: var(--text-primary) !important;
+  caret-color: var(--accent-primary);
+}
+
+.mdc-text-field--outlined .mdc-floating-label,
+.mat-mdc-form-field-label {
+  color: var(--text-secondary) !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: var(--accent-primary) !important;
+}
+
+// Placeholder color
+.mat-mdc-form-field .mat-mdc-input-element::placeholder,
+.mat-mdc-form-field textarea.mat-mdc-input-element::placeholder {
+  color: var(--text-muted) !important;
+}
+
+.mdc-line-ripple::before {
+  border-bottom-color: var(--border-color) !important;
+}
+
+.mdc-line-ripple::after {
+  border-bottom-color: var(--accent-primary) !important;
+}
+
+// Tables
+.mat-mdc-table {
+  background-color: var(--bg-card) !important;
+}
+
+.mat-mdc-header-cell {
+  color: var(--text-secondary) !important;
+  border-bottom-color: var(--border-color) !important;
+  font-weight: 500;
+}
+
+.mat-mdc-cell {
+  color: var(--text-primary) !important;
+  border-bottom-color: var(--border-color) !important;
+}
+
+.mat-mdc-row:hover {
+  background-color: var(--hover-bg) !important;
+}
+
+// Selects — high specificity overrides for all form-field appearances
+.mat-mdc-form-field .mat-mdc-select,
+.mat-mdc-form-field .mat-mdc-select-trigger,
+.mat-mdc-form-field .mat-mdc-select-value,
+.mat-mdc-form-field .mat-mdc-select-value-text,
+.mat-mdc-form-field .mat-mdc-select-min-line {
+  color: var(--text-primary) !important;
+}
+
+.mat-mdc-form-field .mat-mdc-select-arrow {
+  color: var(--text-secondary) !important;
+}
+
+.mat-mdc-form-field .mat-mdc-select-placeholder {
+  color: var(--text-muted) !important;
+}
+
+// Outlined form field support
+.mdc-text-field--outlined .mdc-notched-outline__leading,
+.mdc-text-field--outlined .mdc-notched-outline__notch,
+.mdc-text-field--outlined .mdc-notched-outline__trailing {
+  border-color: var(--border-color) !important;
+}
+
+.mdc-text-field--outlined:hover:not(.mdc-text-field--focused) .mdc-notched-outline__leading,
+.mdc-text-field--outlined:hover:not(.mdc-text-field--focused) .mdc-notched-outline__notch,
+.mdc-text-field--outlined:hover:not(.mdc-text-field--focused) .mdc-notched-outline__trailing {
+  border-color: var(--text-secondary) !important;
+}
+
+.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__leading,
+.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__notch,
+.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: var(--accent-primary) !important;
+}
+
+.mat-mdc-option {
+  color: var(--text-primary) !important;
+
+  .mdc-list-item__primary-text {
+    color: var(--text-primary) !important;
+  }
+
+  &:hover:not(.mdc-list-item--disabled),
+  &.mat-mdc-option-active {
+    background-color: var(--hover-bg) !important;
+  }
+
+  &.mdc-list-item--selected:not(.mat-mdc-option-multiple) {
+    background-color: var(--focus-bg) !important;
+
+    .mdc-list-item__primary-text {
+      color: var(--text-primary) !important;
+    }
+  }
+
+  .mat-pseudo-checkbox-checked,
+  .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
+    color: var(--accent-primary) !important;
+  }
+}
+
+.mat-mdc-select-panel {
+  background-color: var(--bg-surface-high) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+// Tabs
+.mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab__text-label {
+  color: var(--text-secondary) !important;
+}
+
+.mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
+  color: var(--accent-primary) !important;
+}
+
+.mat-mdc-tab-header {
+  border-bottom-color: var(--border-color) !important;
+}
+
+.mdc-tab-indicator__content--underline {
+  border-color: var(--accent-primary) !important;
+}
+
+// Dividers
+.mat-divider {
+  border-top-color: var(--border-color) !important;
+}
+
+// Checkboxes
+.mat-mdc-checkbox .mdc-label {
+  color: var(--text-primary) !important;
+}
+
+// List items
+.mat-mdc-list-item {
+  color: var(--text-primary) !important;
+
+  .mdc-list-item__primary-text {
+    color: var(--text-primary) !important;
+  }
+}
+
+// Menus
+.mat-mdc-menu-panel {
+  background-color: var(--bg-surface-high) !important;
+}
+
+.mat-mdc-menu-item {
+  color: var(--text-primary) !important;
+
+  &:hover {
+    background-color: var(--hover-bg) !important;
+  }
+}
+
+// Buttons
+.mat-mdc-button, .mat-mdc-icon-button {
+  color: var(--accent-primary) !important;
+}
+
+.mat-mdc-raised-button, .mat-mdc-flat-button {
+  &.mat-primary {
+    background-color: var(--accent-primary) !important;
+    color: var(--text-on-primary) !important;
+  }
+}
+
+.mat-mdc-outlined-button {
+  border-color: var(--border-color) !important;
+  color: var(--accent-primary) !important;
+}
+
+// FAB
+.mat-mdc-fab, .mat-mdc-mini-fab {
+  &.mat-primary {
+    background-color: var(--accent-primary) !important;
+    color: var(--text-on-primary) !important;
+  }
+}
+
+// Snackbar
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background-color: var(--bg-surface-high) !important;
+  color: var(--text-primary) !important;
+}
+
+// Paginator
+.mat-mdc-paginator {
+  background-color: var(--bg-card) !important;
+  color: var(--text-secondary) !important;
+}
+
+// Tooltip
+.mat-mdc-tooltip .mdc-tooltip__surface {
+  background-color: #6e7681 !important;
+  color: #ffffff !important;
+}
+
+// Badge
+.mat-badge-content {
+  background-color: var(--accent-red) !important;
+  color: var(--text-on-primary) !important;
+}
+
+// Chips
+.mat-mdc-chip {
+  background-color: var(--bg-surface) !important;
+  color: var(--text-primary) !important;
+}
+
+// Progress indicators
+.mat-mdc-progress-bar .mdc-linear-progress__buffer-bar {
+  background-color: var(--bg-surface) !important;
+}
+
+.mat-mdc-progress-spinner circle {
+  stroke: var(--accent-primary) !important;
+}
+
+// Datepicker
+.mat-datepicker-content {
+  background-color: var(--bg-surface-high) !important;
+  color: var(--text-primary) !important;
+}
+
+.mat-calendar {
+  background-color: var(--bg-surface-high);
+}
+
+.mat-calendar-header {
+  background-color: var(--bg-surface-high);
+}
+
+.mat-calendar-body-label,
+.mat-calendar-period-button {
+  color: var(--text-primary) !important;
+}
+
+.mat-calendar-table-header th {
+  color: var(--text-secondary) !important;
+}
+
+.mat-calendar-body-cell-content {
+  color: var(--text-primary) !important;
+}
+
+.mat-calendar-body-selected {
+  background-color: var(--accent-primary) !important;
+  color: var(--text-on-primary) !important;
+}
+
+.mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border-color: var(--accent-primary) !important;
+}
+
+.mat-calendar-body-cell:hover .mat-calendar-body-cell-content {
+  background-color: var(--hover-bg) !important;
+}
+
+.mat-calendar-body-disabled .mat-calendar-body-cell-content {
+  color: var(--text-muted) !important;
+}
+
+.mat-calendar-arrow {
+  fill: var(--text-primary) !important;
+}
+
+.mat-datepicker-toggle-default-icon {
+  color: var(--text-secondary) !important;
+}
+
+.mat-calendar-previous-button,
+.mat-calendar-next-button {
+  color: var(--text-primary) !important;
+}
+
+// Autocomplete panel
+.mat-mdc-autocomplete-panel {
+  background-color: var(--bg-surface-high) !important;
+}
+
+// CDK overlay backdrop
+.cdk-overlay-dark-backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+// Utility classes
+.spacer {
+  flex: 1 1 auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mt-3 { margin-top: 24px; }
+.mb-1 { margin-bottom: 8px; }
+.mb-2 { margin-bottom: 16px; }
+.mb-3 { margin-bottom: 24px; }
+.ml-1 { margin-left: 8px; }
+.mr-1 { margin-right: 8px; }
+.p-1 { padding: 8px; }
+.p-2 { padding: 16px; }
+.p-3 { padding: 24px; }
+
+.full-width {
+  width: 100%;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.gap-1 { gap: 8px; }
+.gap-2 { gap: 16px; }
+.gap-3 { gap: 24px; }
+
+// Category form row
+.category-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  .category-field {
+    flex: 1;
+  }
+}
+
+.new-category-section {
+  background: var(--new-category-bg);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+
+  .category-options {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 4px;
+  }
+}
+
+// Recurring hint
+.recurring-hint {
+  background: var(--recurring-hint-bg);
+  border-left: 3px solid var(--recurring-hint-border);
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--text-primary);
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 12px;
+}
+
+// Snackbar overrides
+.mat-mdc-snack-bar-container {
+  &.success-snackbar .mdc-snackbar__surface {
+    background-color: var(--accent-green);
+    color: var(--text-on-primary);
+  }
+  &.error-snackbar .mdc-snackbar__surface {
+    background-color: var(--accent-red);
+    color: var(--text-on-primary);
+  }
+}

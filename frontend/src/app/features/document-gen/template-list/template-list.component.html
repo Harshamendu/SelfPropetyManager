@@ -1,0 +1,68 @@
+<div class="list-header">
+  <h1>Document Templates</h1>
+  <div class="header-actions">
+    <mat-form-field class="state-select" appearance="outline">
+      <mat-label>State</mat-label>
+      <mat-select [(ngModel)]="selectedState" (selectionChange)="onStateChange()">
+        <mat-option value="">All States</mat-option>
+        @for (state of states; track state.code) {
+          <mat-option [value]="state.code">{{ state.code }} - {{ state.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <button mat-stroked-button color="accent" (click)="seedTemplates()" [disabled]="!selectedState">
+      <mat-icon>library_add</mat-icon> Load {{ selectedState || '' }} Templates
+    </button>
+    <button mat-fab color="primary" (click)="createTemplate()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
+
+@if (loading) {
+  <p class="text-center mt-3">Loading templates...</p>
+}
+
+@if (!loading && templates.length === 0) {
+  <div class="empty-state">
+    <mat-icon class="empty-icon">description</mat-icon>
+    <h2>No Templates Yet</h2>
+    <p>Select a state and load templates, or create your own.</p>
+    <div class="empty-actions">
+      <button mat-flat-button color="primary" (click)="seedTemplates()" [disabled]="!selectedState">
+        <mat-icon>library_add</mat-icon> Load {{ selectedState || '' }} Templates
+      </button>
+      <button mat-stroked-button (click)="createTemplate()">
+        <mat-icon>add</mat-icon> Create Custom Template
+      </button>
+    </div>
+  </div>
+}
+
+<div class="template-grid">
+  @for (template of templates; track template.id) {
+    <mat-card class="template-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="template-avatar">description</mat-icon>
+        <mat-card-title>{{ template.name }}</mat-card-title>
+        <mat-card-subtitle>{{ template.variables.length }} variable(s) @if (template.state) { · {{ template.state }} }</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        @if (template.description) {
+          <p class="description">{{ template.description }}</p>
+        }
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button color="primary" (click)="generateDocument(template)">
+          <mat-icon>play_arrow</mat-icon> Generate
+        </button>
+        <button mat-icon-button (click)="editTemplate(template.id)" title="Edit">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteTemplate(template)" title="Delete">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  }
+</div>

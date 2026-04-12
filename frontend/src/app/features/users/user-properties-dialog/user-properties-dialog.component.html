@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>Assign Properties — {{ user.full_name }}</h2>
+
+<mat-dialog-content>
+  @if (loading) {
+    <div class="loading">Loading...</div>
+  } @else {
+    <div class="assign-row">
+      <mat-form-field appearance="outline" class="property-select">
+        <mat-label>Add property</mat-label>
+        <mat-select [(ngModel)]="selectedPropertyId">
+          @for (property of availableProperties; track property.id) {
+            <mat-option [value]="property.id">
+              {{ property.name }} — {{ property.address_line1 }}
+            </mat-option>
+          }
+          @if (availableProperties.length === 0) {
+            <mat-option disabled>All properties assigned</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <button mat-flat-button color="primary" (click)="assign()" [disabled]="!selectedPropertyId">
+        <mat-icon>add</mat-icon> Assign
+      </button>
+    </div>
+
+    <h3>Assigned Properties ({{ rows.length }})</h3>
+    @if (rows.length === 0) {
+      <div class="empty">No properties assigned yet.</div>
+    } @else {
+      <mat-list>
+        @for (row of rows; track row.assignment.id) {
+          <mat-list-item>
+            <mat-icon matListItemIcon>home</mat-icon>
+            <div matListItemTitle>{{ row.property?.name || 'Unknown property' }}</div>
+            <div matListItemLine>{{ row.property?.address_line1 }}, {{ row.property?.city }}</div>
+            <button
+              mat-icon-button
+              matListItemMeta
+              color="warn"
+              (click)="unassign(row.assignment.property_id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-list-item>
+        }
+      </mat-list>
+    }
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Close</button>
+</mat-dialog-actions>

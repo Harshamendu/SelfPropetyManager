@@ -1,0 +1,73 @@
+<div class="dashboard-header">
+  <h1>Dashboard</h1>
+  <span class="year-label">{{ currentYear }}</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="toggleSensitive()" [matTooltip]="showSensitive ? 'Hide sensitive info' : 'Show sensitive info'" class="visibility-toggle">
+    <mat-icon>{{ showSensitive ? 'visibility' : 'visibility_off' }}</mat-icon>
+  </button>
+</div>
+
+@if (loading) {
+  <p class="text-center mt-3">Loading dashboard...</p>
+}
+
+@if (!loading && properties.length === 0) {
+  <div class="empty-state">
+    <mat-icon class="empty-icon">home_work</mat-icon>
+    <h2>Welcome to OWN Property Manager</h2>
+    <p>Add your first property to get started tracking income, expenses, and more.</p>
+    <button mat-flat-button color="primary" (click)="addProperty()">
+      <mat-icon>add</mat-icon> Add Property
+    </button>
+  </div>
+}
+
+<div class="property-grid">
+  @for (property of properties; track property.id) {
+    <mat-card class="property-summary-card" (click)="viewProperty(property.id)">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="property-icon">home</mat-icon>
+        <mat-card-title>{{ property.name }}</mat-card-title>
+        <mat-card-subtitle>{{ property.city }}, {{ property.state }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        @if (getSummary(property.id); as summary) {
+          <div class="lease-status" [class.leased]="summary.is_leased" [class.not-leased]="!summary.is_leased">
+            <mat-icon>{{ summary.is_leased ? 'verified' : 'cancel' }}</mat-icon>
+            <span class="lease-badge">{{ summary.is_leased ? 'Leased' : 'Not Leased' }}</span>
+            @if (summary.is_leased && summary.lease) {
+              <div class="lease-details">
+                <span class="tenant-name">{{ showSensitive ? summary.lease.tenant_name : '******' }}</span>
+                <span class="lease-dates">{{ summary.lease.lease_start }} — {{ summary.lease.lease_end }}</span>
+                @if (summary.lease.monthly_rent) {
+                  <span class="lease-rent">{{ showSensitive ? (summary.lease.monthly_rent | currencyFormat) : '$*,***' }}/mo</span>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-item income">
+              <span class="stat-label">Rent Collected</span>
+              <span class="stat-value">{{ showSensitive ? (summary.rent_collected_ytd | currencyFormat) : '$**,***' }}</span>
+            </div>
+            <div class="stat-item expense">
+              <span class="stat-label">Expenses</span>
+              <span class="stat-value">{{ showSensitive ? (summary.expenses_ytd | currencyFormat) : '$**,***' }}</span>
+            </div>
+            <div class="stat-item" [class.positive]="summary.rent_collected_ytd - summary.expenses_ytd >= 0" [class.negative]="summary.rent_collected_ytd - summary.expenses_ytd < 0">
+              <span class="stat-label">Net Income</span>
+              <span class="stat-value">{{ showSensitive ? (summary.rent_collected_ytd - summary.expenses_ytd | currencyFormat) : '$**,***' }}</span>
+            </div>
+            <div class="stat-item reminders">
+              <span class="stat-label">Upcoming Reminders</span>
+              <span class="stat-value">{{ summary.upcoming_reminders }}</span>
+            </div>
+          </div>
+        } @else {
+          <p class="no-data">No summary data available.</p>
+        }
+      </mat-card-content>
+    </mat-card>
+  }
+</div>

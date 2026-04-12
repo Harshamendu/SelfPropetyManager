@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit User' : 'New User' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Full Name</mat-label>
+      <input matInput formControlName="full_name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Role</mat-label>
+      <mat-select formControlName="role">
+        @for (role of roles; track role.value) {
+          <mat-option [value]="role.value">
+            {{ role.label }} — {{ role.description }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{ isEdit ? 'New Password (leave blank to keep)' : 'Password' }}</mat-label>
+      <input matInput type="password" formControlName="password" autocomplete="new-password">
+      @if (!isEdit) {
+        <mat-hint>Minimum 8 characters</mat-hint>
+      }
+    </mat-form-field>
+
+    <mat-checkbox formControlName="is_active">Account active</mat-checkbox>
+
+    @if (error) {
+      <div class="error-banner">
+        <mat-icon>error</mat-icon>
+        <span>{{ error }}</span>
+      </div>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button (click)="cancel()">Cancel</button>
+    <button type="submit" mat-flat-button color="primary" [disabled]="form.invalid || loading">
+      {{ isEdit ? 'Save' : 'Create' }}
+    </button>
+  </mat-dialog-actions>
+</form>

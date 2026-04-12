@@ -1,0 +1,106 @@
+<div class="list-header">
+  <h2>Rental Payments</h2>
+  <div class="header-actions">
+    <mat-form-field class="year-select">
+      <mat-label>Year</mat-label>
+      <mat-select [(ngModel)]="selectedYear" (selectionChange)="onYearChange()">
+        @for (year of years; track year) {
+          <mat-option [value]="year">{{ year }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <button mat-flat-button color="primary" (click)="addPayment()">
+      <mat-icon>add</mat-icon> Add Payment
+    </button>
+  </div>
+</div>
+
+@if (loading) {
+  <p>Loading payments...</p>
+}
+
+@if (!loading && payments.length === 0) {
+  <p class="empty-message">No rental payments recorded for {{ selectedYear }}.</p>
+}
+
+@if (payments.length > 0) {
+  <table mat-table [dataSource]="payments" class="full-width">
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let payment">
+        @if (payment.is_marked_done) {
+          <mat-icon class="done-icon" matTooltip="Completed">check_circle</mat-icon>
+        } @else if (isFuture(payment)) {
+          <mat-icon class="future-icon" matTooltip="Upcoming">schedule</mat-icon>
+        } @else if (requiresMarking(payment)) {
+          <mat-checkbox
+            [checked]="false"
+            (change)="toggleMarkDone(payment)"
+            matTooltip="Mark as received">
+          </mat-checkbox>
+        } @else {
+          <mat-icon class="auto-icon" matTooltip="Auto-recurring">autorenew</mat-icon>
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="payment_date">
+      <th mat-header-cell *matHeaderCellDef>Due Date</th>
+      <td mat-cell *matCellDef="let payment"
+        [class.past-due-text]="isPastDue(payment)">
+        {{ payment.payment_date | date:'mediumDate' }}
+        @if (isPastDue(payment)) {
+          <span class="past-due-badge">PAST DUE</span>
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>Category</th>
+      <td mat-cell *matCellDef="let payment">{{ payment.category || '-' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef>Amount</th>
+      <td mat-cell *matCellDef="let payment">{{ payment.amount | currencyFormat }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="period">
+      <th mat-header-cell *matHeaderCellDef>Period</th>
+      <td mat-cell *matCellDef="let payment">
+        {{ payment.period_start | date:'shortDate' }} - {{ payment.period_end | date:'shortDate' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="payment_method">
+      <th mat-header-cell *matHeaderCellDef>Method</th>
+      <td mat-cell *matCellDef="let payment">{{ payment.payment_method || '-' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let payment">
+        @if (!isFuture(payment)) {
+          <button mat-icon-button (click)="editPayment(payment)" title="Edit">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deletePayment(payment)" title="Delete">
+            <mat-icon>delete</mat-icon>
+          </button>
+        } @else {
+          <span class="future-label">Upcoming</span>
+        }
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+      [class.done-row]="row.is_marked_done"
+      [class.past-due-row]="isPastDue(row)"
+      [class.future-row]="isFuture(row)"></tr>
+  </table>
+
+  <div class="total-row mt-2">
+    <strong>Total: {{ totalPayments | currencyFormat }}</strong>
+  </div>
+}

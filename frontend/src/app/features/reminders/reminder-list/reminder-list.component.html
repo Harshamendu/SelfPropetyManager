@@ -1,0 +1,73 @@
+<div class="list-header">
+  <h2>Reminders</h2>
+  <button mat-flat-button color="primary" (click)="addReminder()">
+    <mat-icon>add</mat-icon> Add Reminder
+  </button>
+</div>
+
+@if (loading) {
+  <p>Loading reminders...</p>
+}
+
+@if (!loading && reminders.length === 0) {
+  <p class="empty-message">No reminders set.</p>
+}
+
+@if (reminders.length > 0) {
+  <table mat-table [dataSource]="reminders" class="full-width">
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Title</th>
+      <td mat-cell *matCellDef="let reminder" [class.overdue]="isOverdue(reminder)">
+        {{ reminder.title }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="due_date">
+      <th mat-header-cell *matHeaderCellDef>Due Date</th>
+      <td mat-cell *matCellDef="let reminder" [class.overdue]="isOverdue(reminder)">
+        {{ reminder.due_date | date:'shortDate' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="reminder_type">
+      <th mat-header-cell *matHeaderCellDef>Type</th>
+      <td mat-cell *matCellDef="let reminder">{{ reminder.reminder_type }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let reminder">
+        <span class="status-chip" [class]="'status-' + getStatus(reminder).toLowerCase()">
+          {{ getStatus(reminder) }}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="is_recurring">
+      <th mat-header-cell *matHeaderCellDef>Recurring</th>
+      <td mat-cell *matCellDef="let reminder">
+        {{ reminder.is_recurring ? reminder.recurrence_rule : 'No' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let reminder">
+        @if (!reminder.is_completed) {
+          <button mat-icon-button (click)="completeReminder(reminder)" title="Mark Complete" color="primary">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+        }
+        <button mat-icon-button (click)="editReminder(reminder)" title="Edit">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteReminder(reminder)" title="Delete">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+}

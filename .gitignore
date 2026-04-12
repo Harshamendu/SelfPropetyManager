@@ -1,0 +1,39 @@
+# Environment
+.env
+*.pyc
+__pycache__/
+*.pyo
+
+# Python
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+.venv/
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+
+# Claude (local personal settings)
+.claude/settings.local.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+
+# Documents (stored externally)
+documents/

@@ -1,0 +1,241 @@
+.tenant-dashboard {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  .subtitle {
+    margin: 4px 0 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+}
+
+.loading {
+  padding: 48px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.empty-card {
+  max-width: 520px;
+  margin: 48px auto;
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 32px;
+
+    mat-icon {
+      font-size: 56px;
+      width: 56px;
+      height: 56px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      color: var(--text-primary);
+    }
+
+    p {
+      margin: 0;
+      color: var(--text-secondary);
+    }
+  }
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.property-card,
+.payments-card,
+.reminders-card,
+.stat-card {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.property-card {
+  mat-card-header {
+    mat-icon[mat-card-avatar] {
+      background-color: var(--stat-income-bg);
+      color: var(--stat-income-text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+  }
+
+  mat-card-title {
+    color: var(--text-primary);
+  }
+
+  mat-card-subtitle {
+    color: var(--text-secondary);
+  }
+
+  .lease-info {
+    margin-top: 16px;
+
+    .lease-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-color);
+
+      &:last-of-type {
+        border-bottom: none;
+      }
+
+      .label {
+        color: var(--text-secondary);
+        font-size: 13px;
+      }
+
+      .value {
+        color: var(--text-primary);
+        font-weight: 500;
+      }
+    }
+
+    mat-chip-set {
+      margin-top: 12px;
+    }
+  }
+
+  .muted {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+}
+
+.stat-card {
+  position: relative;
+  overflow: hidden;
+
+  mat-card-content {
+    padding: 20px;
+  }
+
+  .stat-label {
+    color: var(--text-secondary);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .stat-sub {
+    margin-top: 4px;
+    color: var(--text-secondary);
+    font-size: 12px;
+  }
+
+  .stat-icon {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    font-size: 36px;
+    width: 36px;
+    height: 36px;
+    opacity: 0.25;
+  }
+
+  &.income {
+    background-color: var(--stat-income-bg);
+    .stat-value,
+    .stat-icon {
+      color: var(--stat-income-text);
+    }
+  }
+
+  &.reminder {
+    background-color: var(--stat-reminder-bg);
+    .stat-value,
+    .stat-icon {
+      color: var(--stat-reminder-text);
+    }
+  }
+}
+
+.payments-card,
+.reminders-card {
+  margin-bottom: 24px;
+
+  mat-card-title {
+    color: var(--text-primary);
+  }
+
+  .muted {
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 12px 0;
+  }
+}
+
+.payments-table {
+  width: 100%;
+  background-color: transparent;
+
+  th.mat-mdc-header-cell {
+    color: var(--text-secondary);
+    background-color: var(--bg-surface);
+  }
+
+  td.mat-mdc-cell {
+    color: var(--text-primary);
+    border-bottom-color: var(--border-color);
+  }
+}
+
+.status-chip {
+  font-size: 12px;
+  font-weight: 500;
+
+  &.active {
+    background-color: var(--lease-active-bg);
+    color: var(--lease-active-text);
+  }
+
+  &.paid {
+    background-color: var(--stat-income-bg);
+    color: var(--stat-income-text);
+  }
+
+  &.due {
+    background-color: var(--stat-reminder-bg);
+    color: var(--stat-reminder-text);
+  }
+}

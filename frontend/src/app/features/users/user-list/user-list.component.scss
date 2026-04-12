@@ -1,0 +1,67 @@
+.users-page {
+  padding: 0;
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h1 {
+      font-weight: 400;
+      margin: 0;
+      color: var(--text-primary);
+    }
+  }
+}
+
+.loading,
+.empty {
+  padding: 32px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.users-table {
+  width: 100%;
+  background-color: transparent;
+}
+
+.role-chip {
+  font-size: 12px;
+  font-weight: 500;
+
+  &.role-admin {
+    background-color: var(--stat-info-bg) !important;
+    color: var(--stat-info-text) !important;
+  }
+
+  &.role-property_manager {
+    background-color: var(--stat-income-bg) !important;
+    color: var(--stat-income-text) !important;
+  }
+
+  &.role-tenant {
+    background-color: var(--stat-reminder-bg) !important;
+    color: var(--stat-reminder-text) !important;
+  }
+
+  &.role-viewer {
+    background-color: var(--stat-neutral-bg) !important;
+    color: var(--stat-neutral-text) !important;
+  }
+}
+
+.status-active {
+  color: var(--accent-green);
+  font-weight: 500;
+}
+
+.status-inactive {
+  color: var(--text-muted);
+}
+
+.actions-cell {
+  white-space: nowrap;
+  text-align: right;
+}

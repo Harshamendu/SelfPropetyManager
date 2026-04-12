@@ -1,0 +1,32 @@
+.full-width {
+  width: 100%;
+}
+
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 380px;
+}
+
+mat-checkbox {
+  margin: 8px 0 16px;
+}
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background-color: var(--stat-expense-bg);
+  color: var(--stat-expense-text);
+  border-radius: 8px;
+  font-size: 13px;
+  margin-top: 8px;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}

@@ -1,4 +1,4 @@
-# Self Property Manager - Project Skills & Standards
+# OWN Property Manager - Project Skills & Standards
 
 A modular full-stack property management application. This document serves as the definitive reference for architecture, conventions, and patterns used across the project.
 

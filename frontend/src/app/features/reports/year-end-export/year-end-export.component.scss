@@ -1,0 +1,18 @@
+h1 {
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+
+.report-card {
+  max-width: 600px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+
+  mat-form-field {
+    flex: 1;
+  }
+}

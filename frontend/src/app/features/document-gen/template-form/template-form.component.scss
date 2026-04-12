@@ -1,0 +1,47 @@
+.form-container {
+  max-width: 900px;
+  margin: 0 auto;
+
+  h1 {
+    font-weight: 400;
+    margin-bottom: 24px;
+  }
+}
+
+.variables-section {
+  .variables-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    h3 {
+      margin: 0;
+      font-weight: 500;
+    }
+  }
+}
+
+.variable-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  padding: 12px;
+  background: var(--bg-surface);
+  border-radius: 8px;
+
+  mat-form-field {
+    flex: 1;
+  }
+
+  mat-checkbox {
+    white-space: nowrap;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
