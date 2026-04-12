@@ -53,8 +53,8 @@ That's it. No need to install Python, Node, or PostgreSQL locally.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/SelfPropertyManager.git
-cd SelfPropertyManager
+git clone https://github.com/Harshamendu/SelfPropetyManager.git
+cd SelfPropetyManager
 ```
 
 ### 2. Create your environment file
