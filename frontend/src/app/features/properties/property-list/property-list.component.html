@@ -1,0 +1,50 @@
+<div class="property-list-header">
+  <h1>Properties</h1>
+  <button mat-fab color="primary" (click)="addProperty()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+@if (loading) {
+  <p class="text-center mt-3">Loading properties...</p>
+}
+
+@if (!loading && properties.length === 0) {
+  <div class="empty-state">
+    <mat-icon class="empty-icon">home_work</mat-icon>
+    <h2>No Properties Yet</h2>
+    <p>Add your first property to get started.</p>
+    <button mat-flat-button color="primary" (click)="addProperty()">
+      <mat-icon>add</mat-icon> Add Property
+    </button>
+  </div>
+}
+
+<div class="property-grid">
+  @for (property of properties; track property.id) {
+    <mat-card class="property-card" (click)="viewProperty(property.id)">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="property-avatar">home</mat-icon>
+        <mat-card-title>{{ property.name }}</mat-card-title>
+        <mat-card-subtitle>{{ property.property_type }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="address">
+          {{ property.address_line1 }}
+          @if (property.address_line2) {
+            <br>{{ property.address_line2 }}
+          }
+          <br>{{ property.city }}, {{ property.state }} {{ property.zip_code }}
+        </p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-icon-button (click)="editProperty(property.id, $event)" title="Edit">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteProperty(property, $event)" title="Delete">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  }
+</div>

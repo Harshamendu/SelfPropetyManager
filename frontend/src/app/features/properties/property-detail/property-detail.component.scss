@@ -1,0 +1,102 @@
+.property-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+
+  .header-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 400;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      margin: 4px 0 0;
+    }
+  }
+}
+
+.vertical-tabs-container {
+  ::ng-deep .vertical-tabs {
+    .mat-mdc-tab-group {
+      flex-direction: row;
+    }
+
+    .mat-mdc-tab-header {
+      flex-direction: column;
+      min-width: 200px;
+      border-right: 1px solid var(--border-color);
+      border-bottom: none;
+    }
+
+    .mat-mdc-tab-labels {
+      flex-direction: column;
+    }
+
+    .mat-mdc-tab-label-container {
+      flex-direction: column;
+    }
+
+    .mdc-tab {
+      justify-content: flex-start;
+      padding: 0 24px;
+      min-width: 200px;
+      height: 48px;
+
+      .mdc-tab__content {
+        flex-direction: row;
+        gap: 12px;
+        justify-content: flex-start;
+      }
+    }
+
+    .mat-mdc-tab-body-wrapper {
+      flex: 1;
+    }
+
+    .mdc-tab-indicator {
+      display: none;
+    }
+
+    .mdc-tab--active {
+      background-color: var(--hover-bg);
+    }
+  }
+}
+
+.tab-content {
+  padding: 16px 0 16px 24px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 16px;
+
+  .detail-item {
+    &.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    span {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+  }
+}

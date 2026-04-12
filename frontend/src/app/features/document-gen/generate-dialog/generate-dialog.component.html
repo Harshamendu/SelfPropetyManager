@@ -1,0 +1,66 @@
+<h2 mat-dialog-title>Generate: {{ template.name }}</h2>
+
+<mat-dialog-content>
+  @if (!showPreview) {
+    <div class="property-select">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Select Property</mat-label>
+        <mat-select [(ngModel)]="selectedPropertyId" (selectionChange)="onPropertyChange()">
+          <mat-option value="">-- No Property --</mat-option>
+          @for (property of properties; track property.id) {
+            <mat-option [value]="property.id">
+              {{ property.name }} — {{ property.address_line1 }}, {{ property.city }}
+            </mat-option>
+          }
+        </mat-select>
+        <mat-hint>Select a property to auto-fill tenant, landlord, and property info</mat-hint>
+      </mat-form-field>
+    </div>
+
+    @if (loading) {
+      <div class="loading-row">
+        <mat-spinner diameter="24"></mat-spinner>
+        <span>Loading property data...</span>
+      </div>
+    }
+
+    @if (contextLoaded) {
+      <div class="context-badge">
+        <mat-icon>check_circle</mat-icon>
+        <span>Property data loaded. Review and edit fields below as needed.</span>
+      </div>
+    }
+
+    <div class="variables-grid">
+      @for (variable of template.variables; track variable.name) {
+        <mat-form-field appearance="outline" class="variable-field">
+          <mat-label>{{ variable.label }}</mat-label>
+          <input matInput [(ngModel)]="variables[variable.name]"
+            [placeholder]="variable.label">
+        </mat-form-field>
+      }
+    </div>
+  } @else {
+    <div class="preview-header">
+      <mat-icon>visibility</mat-icon>
+      <span>Preview — review the document before downloading the PDF.</span>
+    </div>
+    <pre class="preview-body">{{ previewText }}</pre>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  @if (!showPreview) {
+    <button mat-stroked-button color="primary" (click)="preview()" [disabled]="loading">
+      <mat-icon>visibility</mat-icon> Preview
+    </button>
+  } @else {
+    <button mat-stroked-button (click)="editFields()" [disabled]="loading">
+      <mat-icon>edit</mat-icon> Edit Fields
+    </button>
+    <button mat-flat-button color="primary" (click)="generate()" [disabled]="loading">
+      <mat-icon>download</mat-icon> Download PDF
+    </button>
+  }
+</mat-dialog-actions>

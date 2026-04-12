@@ -1,0 +1,33 @@
+<mat-toolbar class="topbar">
+  <span class="page-title">
+    @if (user$ | async; as user) {
+      {{ user.is_admin ? 'Admin' : user.full_name }} Property Manager
+    } @else {
+      Property Manager
+    }
+  </span>
+  <span class="spacer"></span>
+
+  <button mat-icon-button (click)="toggleTheme()" [matTooltip]="themeService.isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+    <mat-icon>{{ themeService.isDark ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
+
+  <button mat-icon-button (click)="markAllRead()" [matBadge]="(unreadCount$ | async) || 0" [matBadgeHidden]="(unreadCount$ | async) === 0" matBadgeColor="warn" matBadgeSize="small">
+    <mat-icon>notifications</mat-icon>
+  </button>
+
+  <button mat-icon-button [matMenuTriggerFor]="userMenu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #userMenu="matMenu">
+    @if (user$ | async; as user) {
+      <div class="user-name" style="padding: 8px 16px; font-weight: 500;">{{ user.full_name }}</div>
+      <div style="padding: 0 16px 8px; font-size: 12px; color: var(--text-muted);">{{ user.email }}</div>
+      <mat-divider></mat-divider>
+    }
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

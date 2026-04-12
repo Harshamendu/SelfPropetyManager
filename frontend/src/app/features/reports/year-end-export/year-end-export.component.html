@@ -1,0 +1,36 @@
+<h1>Year-End Report</h1>
+
+<mat-card class="report-card">
+  <mat-card-header>
+    <mat-card-title>Export Year-End Report</mat-card-title>
+    <mat-card-subtitle>Generate an Excel report with all income and expenses for the selected year.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Year</mat-label>
+        <mat-select [(ngModel)]="selectedYear">
+          @for (year of years; track year) {
+            <mat-option [value]="year">{{ year }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Property (optional)</mat-label>
+        <mat-select [(ngModel)]="selectedPropertyId">
+          <mat-option [value]="null">All Properties</mat-option>
+          @for (property of properties; track property.id) {
+            <mat-option [value]="property.id">{{ property.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-flat-button color="primary" (click)="download()" [disabled]="downloading">
+      <mat-icon>download</mat-icon>
+      {{ downloading ? 'Generating...' : 'Download Report' }}
+    </button>
+  </mat-card-actions>
+</mat-card>

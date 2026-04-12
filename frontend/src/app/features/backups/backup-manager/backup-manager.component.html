@@ -1,0 +1,89 @@
+<h1>Backup & Recovery</h1>
+
+@if (creating || restoring) {
+  <mat-progress-bar mode="indeterminate" class="mb-2"></mat-progress-bar>
+}
+
+<mat-card class="backup-card">
+  <mat-card-header>
+    <mat-card-title>Database Backups</mat-card-title>
+    <mat-card-subtitle>Create, download, restore, or upload database backups. Only the latest 5 backups are kept.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="action-bar">
+      <button mat-flat-button color="primary" (click)="createBackup()" [disabled]="creating || restoring">
+        <mat-icon>backup</mat-icon>
+        {{ creating ? 'Creating...' : 'Create Backup Now' }}
+      </button>
+
+      <button mat-stroked-button (click)="fileInput.click()" [disabled]="creating || restoring">
+        <mat-icon>upload_file</mat-icon> Upload Backup
+      </button>
+      <input #fileInput type="file" accept=".sql" hidden (change)="uploadBackup($event)">
+    </div>
+
+    @if (loading) {
+      <p class="text-center mt-2">Loading backups...</p>
+    }
+
+    @if (!loading && backups.length === 0) {
+      <p class="empty-message">No backups yet. Create your first backup above.</p>
+    }
+
+    @if (backups.length > 0) {
+      <table mat-table [dataSource]="backups" class="full-width mt-2">
+        <ng-container matColumnDef="filename">
+          <th mat-header-cell *matHeaderCellDef>Backup File</th>
+          <td mat-cell *matCellDef="let backup">
+            <div class="filename-cell">
+              <mat-icon class="file-icon">storage</mat-icon>
+              {{ backup.filename }}
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="size">
+          <th mat-header-cell *matHeaderCellDef>Size</th>
+          <td mat-cell *matCellDef="let backup">{{ formatFileSize(backup.size_bytes) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="created_at">
+          <th mat-header-cell *matHeaderCellDef>Created</th>
+          <td mat-cell *matCellDef="let backup">{{ backup.created_at | date:'medium' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let backup">
+            <button mat-icon-button (click)="downloadBackup(backup)" title="Download"
+              [disabled]="restoring">
+              <mat-icon>download</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" (click)="restoreBackup(backup)" title="Restore"
+              [disabled]="restoring">
+              <mat-icon>restore</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteBackup(backup)" title="Delete"
+              [disabled]="restoring">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    }
+  </mat-card-content>
+</mat-card>
+
+@if (restoring) {
+  <mat-card class="restore-notice mt-2">
+    <mat-card-content>
+      <div class="restore-message">
+        <mat-icon>warning</mat-icon>
+        <span>Restoring database... The app may need a page refresh after restore completes.</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+}

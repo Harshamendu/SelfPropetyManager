@@ -1,0 +1,156 @@
+<div class="tenant-dashboard">
+  <header class="page-header">
+    <div>
+      <h1>Welcome, {{ tenantName }}</h1>
+      <p class="subtitle">Your rental at a glance</p>
+    </div>
+  </header>
+
+  @if (loading) {
+    <div class="loading">Loading your rental details...</div>
+  } @else if (!property) {
+    <mat-card class="empty-card">
+      <mat-card-content>
+        <mat-icon>home_work</mat-icon>
+        <h2>No rental found</h2>
+        <p>
+          We couldn't find a rental linked to your account. Please contact your property manager
+          to get set up.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  } @else {
+    <div class="cards-grid">
+      <mat-card class="property-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>home</mat-icon>
+          <mat-card-title>{{ property.name }}</mat-card-title>
+          <mat-card-subtitle>
+            {{ property.address_line1 }}@if (property.address_line2) {, {{ property.address_line2 }}}
+            <br />
+            {{ property.city }}, {{ property.state }} {{ property.zip_code }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          @if (summary?.lease; as lease) {
+            <div class="lease-info">
+              <div class="lease-row">
+                <span class="label">Lease Term</span>
+                <span class="value">
+                  {{ lease.lease_start | date: 'mediumDate' }} —
+                  {{ lease.lease_end | date: 'mediumDate' }}
+                </span>
+              </div>
+              <div class="lease-row">
+                <span class="label">Monthly Rent</span>
+                <span class="value">{{ lease.monthly_rent | currencyFormat }}</span>
+              </div>
+              <mat-chip-set>
+                <mat-chip class="status-chip active">
+                  <mat-icon matChipAvatar>check_circle</mat-icon>
+                  Active Lease
+                </mat-chip>
+              </mat-chip-set>
+            </div>
+          } @else {
+            <p class="muted">No active lease on file.</p>
+          }
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card income">
+        <mat-card-content>
+          <div class="stat-label">Paid in {{ currentYear }}</div>
+          <div class="stat-value">{{ totalPaidYtd | currencyFormat }}</div>
+          <mat-icon class="stat-icon">payments</mat-icon>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card reminder">
+        <mat-card-content>
+          <div class="stat-label">Next Payment</div>
+          @if (nextDuePayment) {
+            <div class="stat-value">{{ nextDuePayment.amount | currencyFormat }}</div>
+            <div class="stat-sub">due {{ nextDuePayment.period_start | date: 'mediumDate' }}</div>
+          } @else {
+            <div class="stat-value">—</div>
+            <div class="stat-sub">All caught up</div>
+          }
+          <mat-icon class="stat-icon">event</mat-icon>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <mat-card class="payments-card">
+      <mat-card-header>
+        <mat-card-title>Payment History ({{ currentYear }})</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        @if (payments.length === 0) {
+          <p class="muted">No payments recorded yet this year.</p>
+        } @else {
+          <table mat-table [dataSource]="payments" class="payments-table">
+            <ng-container matColumnDef="period">
+              <th mat-header-cell *matHeaderCellDef>Period</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.period_start | date: 'MMM d' }} — {{ row.period_end | date: 'MMM d, y' }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="payment_date">
+              <th mat-header-cell *matHeaderCellDef>Paid On</th>
+              <td mat-cell *matCellDef="let row">{{ row.payment_date | date: 'mediumDate' }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef>Amount</th>
+              <td mat-cell *matCellDef="let row">{{ row.amount | currencyFormat }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="payment_method">
+              <th mat-header-cell *matHeaderCellDef>Method</th>
+              <td mat-cell *matCellDef="let row">{{ row.payment_method }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>Status</th>
+              <td mat-cell *matCellDef="let row">
+                @if (row.is_marked_done) {
+                  <mat-chip class="status-chip paid">Paid</mat-chip>
+                } @else {
+                  <mat-chip class="status-chip due">Due</mat-chip>
+                }
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="paymentColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: paymentColumns"></tr>
+          </table>
+        }
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="reminders-card">
+      <mat-card-header>
+        <mat-card-title>Upcoming Reminders</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        @if (upcomingReminders.length === 0) {
+          <p class="muted">No upcoming reminders.</p>
+        } @else {
+          <mat-list>
+            @for (reminder of upcomingReminders; track reminder.id) {
+              <mat-list-item>
+                <mat-icon matListItemIcon>notifications</mat-icon>
+                <div matListItemTitle>{{ reminder.title }}</div>
+                <div matListItemLine>
+                  {{ reminder.due_date | date: 'fullDate' }} · {{ reminder.reminder_type }}
+                </div>
+              </mat-list-item>
+            }
+          </mat-list>
+        }
+      </mat-card-content>
+    </mat-card>
+  }
+</div>

@@ -1,0 +1,86 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Contact' : 'Add Contact' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field class="full-width">
+      <mat-label>Contact Type</mat-label>
+      <mat-select formControlName="contact_type">
+        @for (type of contactTypes; track type) {
+          <mat-option [value]="type">{{ type }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="first_name">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="last_name">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Company</mat-label>
+      <input matInput formControlName="company">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Address</mat-label>
+      <textarea matInput formControlName="address" rows="2"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Lease Start</mat-label>
+      <input matInput [matDatepicker]="leaseStartPicker" formControlName="lease_start">
+      <mat-datepicker-toggle matSuffix [for]="leaseStartPicker"></mat-datepicker-toggle>
+      <mat-datepicker #leaseStartPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Lease End</mat-label>
+      <input matInput [matDatepicker]="leaseEndPicker" formControlName="lease_end">
+      <mat-datepicker-toggle matSuffix [for]="leaseEndPicker"></mat-datepicker-toggle>
+      <mat-datepicker #leaseEndPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Monthly Rent</mat-label>
+      <input matInput type="number" formControlName="monthly_rent">
+      <span matPrefix>$&nbsp;</span>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Notes</mat-label>
+      <textarea matInput formControlName="notes" rows="3"></textarea>
+    </mat-form-field>
+
+    @if (isAdmin && form.get('contact_type')?.value === 'tenant') {
+      <mat-form-field class="full-width">
+        <mat-label>Linked Tenant User Account</mat-label>
+        <mat-select formControlName="user_id">
+          <mat-option [value]="null">— Not linked —</mat-option>
+          @for (user of tenantUsers; track user.id) {
+            <mat-option [value]="user.id">{{ user.full_name }} ({{ user.email }})</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="save()" [disabled]="form.invalid || saving">
+    {{ saving ? 'Saving...' : (isEditMode ? 'Update' : 'Add') }}
+  </button>
+</mat-dialog-actions>

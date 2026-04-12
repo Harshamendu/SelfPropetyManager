@@ -1,0 +1,48 @@
+.upload-area {
+  border: 2px dashed var(--upload-border);
+  border-radius: 8px;
+  padding: 32px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &.drag-over {
+    border-color: var(--upload-active-border);
+    background-color: var(--upload-active-bg);
+  }
+
+  &:hover {
+    border-color: var(--text-muted);
+  }
+
+  .upload-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: var(--text-muted);
+  }
+
+  .or-text {
+    color: var(--text-muted);
+    margin: 8px 0;
+  }
+}
+
+.selected-files {
+  margin-top: 16px;
+
+  .file-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    background: var(--bg-surface);
+    border-radius: 4px;
+    margin-bottom: 4px;
+
+    .file-size {
+      color: var(--text-muted);
+      font-size: 0.85em;
+    }
+  }
+}
