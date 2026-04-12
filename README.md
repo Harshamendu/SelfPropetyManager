@@ -1,4 +1,4 @@
-# Self Property Manager
+# OWN Property Manager
 
 A full-stack web application for managing rental properties — track expenses, rental income, documents, contacts, reminders, and generate year-end reports. Built for landlords who manage multiple properties and want everything in one place.
 
@@ -53,8 +53,8 @@ That's it. No need to install Python, Node, or PostgreSQL locally.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Harshamendu/SelfPropetyManager.git
-cd SelfPropetyManager
+git clone https://github.com/Harshamendu/OWNPropertyManager.git
+cd OWNPropertyManager
 ```
 
 ### 2. Create your environment file
@@ -246,7 +246,7 @@ nginx (port 80)
 ## Project Structure
 
 ```
-SelfPropertyManager/
+OWNPropertyManager/
 ├── .env.example                    # Environment template
 ├── docker-compose.yml              # All services
 ├── CLAUDE.md                       # AI assistant instructions

@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     smtp_use_tls: bool = True
 
     # App
-    app_name: str = "Self Property Manager"
+    app_name: str = "OWN Property Manager"
     cors_origins: str = '["http://localhost","http://localhost:4200"]'
 
     # Auth / JWT
